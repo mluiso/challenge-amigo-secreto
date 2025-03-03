@@ -3,6 +3,7 @@
 
 let listaDeAmigos = [];
 let amigo = "";
+let estadoDelSorteo = ''
 
 
 function chequearVacio(name) {
@@ -36,13 +37,14 @@ function buscarAmigo(lista){
 function sortearAmigo(){
     let resultado = buscarAmigo(listaDeAmigos)
     console.log(resultado)
-    if (resultado == '') {
+    if (resultado == '' || estadoDelSorteo != false)  {
         return
     }
     let cartelResultado = document.getElementById('resultado');
     let amigoInvisible = document.createElement('li');
     amigoInvisible.textContent = `Tu amigo invisible es ${resultado}`;
     cartelResultado.appendChild(amigoInvisible)
+    estadoDelSorteo = true
 
 }
 
