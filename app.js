@@ -3,14 +3,30 @@
 
 let listaDeAmigos = [];
 let amigo = "";
-let estadoDelSorteo = ''
+let estadoDelSorteo = false
 
 
 function chequearVacio(name) {
     if (name === "") { 
         alert('No se ha ingresado ningún nombre');
         return false;}
-    return true;}
+    return true;
+}
+
+function get_and_restart(id){
+    elemento = document.getElementById(id);
+    elemento.innerHTML = "";
+}
+
+function nuevoSorteo() {
+    listaDeAmigos = []
+    amigo = ''
+    estadoDelSorteo = ''
+    get_and_restart('listaAmigos')
+    get_and_restart('resultado')
+    limpiarCaja()
+
+}
 
 
 function validarIngreso(name) { 
@@ -35,16 +51,20 @@ function buscarAmigo(lista){
 }
 
 function sortearAmigo(){
-    let resultado = buscarAmigo(listaDeAmigos)
-    console.log(resultado)
-    if (resultado == '' || estadoDelSorteo != false)  {
-        return
+    let resultado = buscarAmigo(listaDeAmigos);
+    console.log(resultado);
+    if (resultado == '')  {
+        return;
+    }
+    if (estadoDelSorteo != false) {
+        alert("Ya hay un sorteo realizado, Presione el botón 'Añadir' para iniciar un nuevo sorteo.");
+        return;
     }
     let cartelResultado = document.getElementById('resultado');
     let amigoInvisible = document.createElement('li');
     amigoInvisible.textContent = `Tu amigo invisible es ${resultado}`;
-    cartelResultado.appendChild(amigoInvisible)
-    estadoDelSorteo = true
+    cartelResultado.appendChild(amigoInvisible);
+    estadoDelSorteo = true;
 
 }
 
@@ -60,6 +80,11 @@ function agregarNombre(lista) {
 }
 
 function agregarAmigo() {
+    if (estadoDelSorteo != false) {
+        nuevoSorteo();
+        return
+    }
+
     amigo = document.getElementById('amigo').value;
     if (validarIngreso(amigo) == true) {
         console.log(amigo);
